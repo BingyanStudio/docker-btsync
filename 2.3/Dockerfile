@@ -6,10 +6,10 @@ RUN deps='curl ca-certificates' && \
     apk --no-cache add $deps && \
     # install glibc
     cd /tmp && \
-       wget -q -O /etc/apk/keys/andyshinn.rsa.pub \
-            https://raw.githubusercontent.com/andyshinn/alpine-pkg-glibc/master/andyshinn.rsa.pub && \
-       wget https://github.com/andyshinn/alpine-pkg-glibc/releases/download/2.23-r1/glibc-2.23-r1.apk && \
-       apk add glibc-2.23-r1.apk && \
+       wget -q -O /etc/apk/keys/sgerrand.rsa.pub \
+            https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
+       wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk && \
+       apk add glibc-2.23-r3.apk && \
        # install btsync
        curl -sSL -o archive.tgz https://download-cdn.getsync.com/2.3.8/linux-x64/BitTorrent-Sync_x64.tar.gz && \
        tar -xvpzf archive.tgz && \
