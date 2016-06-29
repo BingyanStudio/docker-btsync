@@ -30,7 +30,7 @@ services:
       - UID=1000
       - GID=1000
       - DEVICE=john@linux
-      - DIRECTORY_ROOT=/data
+      - DIRECTORY_ROOT=/host
       - USE_UPNP=true
       - LISTENING_PORT=34567
       - WEBUI_PORT=8888
@@ -83,6 +83,6 @@ Where the password is `default`, its hash is `Vx8HKJkOoFBco`. so your
 ```yml
 ...
     environment:
-      LOGIN: john
-      PASSWORD_HASH: Vx8HKJkOoFBco
+      - LOGIN=john
+      - PASSWORD_HASH=Vx8HKJkOoFBco
 ```

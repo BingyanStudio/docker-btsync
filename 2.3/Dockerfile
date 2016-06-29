@@ -31,7 +31,7 @@ ENV FORCE_HTTPS false
 ENV SSL_CERT /etc/btsync/cert.pem
 ENV SSL_KEY /etc/btsync/private.key
 
-ENV DIRECTORY_ROOT /data
+ENV DIRECTORY_ROOT /host
 ENV UID 1000
 ENV GID 1000
 
