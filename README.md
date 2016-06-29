@@ -4,7 +4,7 @@ BitTorrent Sync in a docker box.
 
 ## Usage ##
 
-If you want to use docker only, use this command:
+Launch a BitTorrent Sync instance by docker:
 
 ```sh
     docker run -it --restart=always --name btsync --net=host \
@@ -14,7 +14,7 @@ If you want to use docker only, use this command:
                    bingyan/btsync
 ```
 
-Or use [Docker Compose](https://www.docker.com/products/docker-compose)(1.6.0+, docker 1.10.0+):
+Or you can use [Docker Compose](https://www.docker.com/products/docker-compose) (1.6.0+, docker 1.10.0+):
 
 Firstly create a file named `docker-compose.yml`:
 
@@ -25,16 +25,21 @@ services:
   btsync:
     image: bingyan/btsync
     container_name: btsync
-    network_mode: host
+    restart: always
     environment:
-      DEVICE: john@linux
-      UID: 1000
-      GID: 1000
-      DIRECTORY_ROOT: /sync
-      USE_UPNP: "true"
+      - UID=1000
+      - GID=1000
+      - DEVICE=john@linux
+      - DIRECTORY_ROOT=/data
+      - USE_UPNP=true
+      - LISTENING_PORT=34567
+      - WEBUI_PORT=8888
     volumes:
       - /:/host
       - ./settings:/home/btsync/.sync
+    ports:
+      - 34567:34567
+      - 8888:8888
 ```
 
 Then run `docker-compose up -d`, and visit web-ui via `localhost:8888`.
@@ -53,8 +58,9 @@ can get you uid and gid by:
 
 ## Settings Persistentce ##
 
-If you want to preserve the settings of btsync, mount a directory to
-`/home/btsync/.sync` in the docker container.
+If you want to preserve the settings of btsync after the container is
+recreated, mount a host directory to `/home/btsync/.sync` in the docker
+container.
 
 
 ## Authentication ##
@@ -80,15 +86,3 @@ Where the password is `default`, its hash is `Vx8HKJkOoFBco`. so your
       LOGIN: john
       PASSWORD_HASH: Vx8HKJkOoFBco
 ```
-
-
-## Ports ##
-
-By default, port `34567` and `34567/udp` are used for data transfering,
-and `8888` is used for web-ui. If you don't use docker's `host`
-network mode, please remember to map these ports to outside world.
-
-
-## More Info ##
-
-Please reference the Dockerfile directly.
